@@ -9,14 +9,28 @@
 </head>
 <body>
     <div id="app">
-        <div :class="{hidden: isActive}" class="intro">
+        <div  class="intro">
             <h1>Tic Tac Toe</h1>
-            <button @click="jouer">Jouer!</button>
+            <!-- Quand click sur bouton jouer, le jeu devient actif et le bouton disparait -->
+            <button :class="{hidden: isActive}" @click="isActive = !isActive, jeu = !jeu">Jouer!</button>
         </div>
+        <div v-if="jeu" class="jeu">
+            
+            <!-- <transition-group name="grille"> -->
+                <div v-for="(square, i) in squares"   @click="changerTour(i)"  class="square">
+                    {{ square }}
+                </div>
+            <!-- </transition-group> -->
+                
+                
+            </div>
+            <div v-if="jeu" class="tour">Tour actuel: {{ tour }}</div>
+            <div v-if="gagnant" class="gagnant">Le gagnant est : {{ tour }}</div>
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/VueComponentExterne.js" ></script> -->
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
