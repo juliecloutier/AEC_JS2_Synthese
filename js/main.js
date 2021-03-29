@@ -4,21 +4,25 @@ new Vue({
     data: {
         isActive: false,
         squares: [null, null, null, null, null, null, null, null, null],
-        // page_active: "intro",
         jeu: false,
         tour: "X",
-        gagnant: false
+        victoire: false, 
+        gagnant : "",
+        jouer: "Jouer!"
+        
     },
     methods: {
         
         
         // Changer de tour après avoir cliquer
         changerTour: function(index){ 
-            // Doit vérifier si la case est NULL si oui faire le code suivant!!!
-
+            
+            // Vérifier si la case est déjà utiliser
+            if (this.squares[index] == null){
                 // ajouter le X ou O dans la casse
-                Vue.set(this.squares, index, this.squares[index] = this.tour)
-    
+                Vue.set(this.squares, index, this.tour)
+                
+                this.checkGame()
                 // changer de joueur
                 if (this.tour == "X"){
                     this.tour = "O"
@@ -26,30 +30,54 @@ new Vue({
                     this.tour = "X"
                 }
 
-                // Vérifier si joueur X a gagné      
-                if(this.squares[0]== "X"&&this.squares[1]== "X"&&this.squares[2] == "X"){
-                    this.jeu = false 
-                    this.gagnant = true 
-                    this.tour = "X"
-                    
-                }
-                if(this.squares[3]== "X"&&this.squares[4]== "X"&&this.squares[5] == "X"){
-                    this.jeu = false 
-                    this.gagnant = "Joueur X a gagné!"
-                }
-                if(this.squares[6]== "X"&&this.squares[7]== "X"&&this.squares[8] == "X"){
-                    this.jeu = false 
-                    this.gagnant = "Joueur X a gagné!"
-                }
-            
-
-            
-            
+            }
+                
         },
 
-        
-    },
-    mounted(){
+         // Vérifier si joueur X a gagné     
+         checkGame: function(a,b,c){
+            // horizontale
+            let carre = this.squares
+            this.testerLigne(carre[0],carre[1],carre[2]) // première ligne
+            this.testerLigne(carre[3],carre[4],carre[5]) // deuxième ligne
+            this.testerLigne(carre[6],carre[7],carre[8]) // troisième ligne
 
-    }
+            this.testerLigne(carre[0],carre[3],carre[6]) //première colonne
+            this.testerLigne(carre[1],carre[4],carre[7]) //deuxième colonne
+            this.testerLigne(carre[2],carre[5],carre[8]) //troisième colonne
+
+            this.testerLigne(carre[0],carre[4],carre[8]) //diagonale 
+            this.testerLigne(carre[2],carre[4],carre[6]) //diagonale
+            
+
+            
+        },
+        
+        testerLigne: function(a,b,c){
+            if(a !== null && a === b && b === c){
+                
+                this.jeu = false 
+                this.victoire = true
+                this.gagnant = "Le gagnant est " + this.tour      
+                this.jouer = "Rejouer" 
+                this.isActive = false
+                this.squares = [null, null, null, null, null, null, null, null, null]
+            }else if(this.squares[0] !== null && this.squares[1] !== null && this.squares[2] !== null && this.squares[3] !== null && this.squares[4]
+                 !== null && this.squares[5] !== null && this.squares[6] !== null && this.squares[7] !== null&&  this.squares[8] !== null  ){
+                    this.jeu = false 
+                    this.victoire = true
+                    this.gagnant = "Le match est nul"    
+                    this.jouer = "Rejouer" 
+                    this.isActive = false
+                    this.squares = [null, null, null, null, null, null, null, null, null]   
+
+            }
+           
+        },
+
+        rejouer: function(){
+            // trouver comment faire disparaitre le gagnant et recommencer la partie.
+        }
+    },
+    
 })
