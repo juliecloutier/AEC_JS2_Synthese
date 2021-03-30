@@ -27,16 +27,19 @@ body{
 }
 
 .grille-enter-active, .grille-leave-active {
-    transition: all 2.5s ease;
-}
+    transition: all 2s ease;
+    color: violet;
+    }
 .grille-enter, .grille-leave-to {
-   opacity: 0;
+    
+    opacity: 0;
 
 }
 .square:hover {
     transition: all 1s ease;
     border: 1px solid rgb(255, 0, 0);
     background-color: rgb(75, 75, 75);
+    cursor: pointer;
 }
 .tour{
     margin: 20px;

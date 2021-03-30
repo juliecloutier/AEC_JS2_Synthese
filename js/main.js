@@ -8,7 +8,8 @@ new Vue({
         tour: "X",
         victoire: false, 
         gagnant : "",
-        jouer: "Jouer!"
+        jouer: "Jouer!",
+        replay: false,
         
     },
     methods: {
@@ -22,7 +23,8 @@ new Vue({
                 // ajouter le X ou O dans la casse
                 Vue.set(this.squares, index, this.tour)
                 
-                this.checkGame()
+                this.checkGame() //vérifie si le joueur à gagné
+
                 // changer de joueur
                 if (this.tour == "X"){
                     this.tour = "O"
@@ -34,9 +36,9 @@ new Vue({
                 
         },
 
-         // Vérifier si joueur X a gagné     
+         // Vérifier si joueur a gagné     
          checkGame: function(a,b,c){
-            // horizontale
+           
             let carre = this.squares
             this.testerLigne(carre[0],carre[1],carre[2]) // première ligne
             this.testerLigne(carre[3],carre[4],carre[5]) // deuxième ligne
@@ -67,17 +69,17 @@ new Vue({
                     this.jeu = false 
                     this.victoire = true
                     this.gagnant = "Le match est nul"    
-                    this.jouer = "Rejouer" 
+                    this.replay = true
                     this.isActive = false
-                    this.squares = [null, null, null, null, null, null, null, null, null]   
+                    this.jouer = "Rejouer" 
+
+                     
 
             }
            
         },
 
-        rejouer: function(){
-            // trouver comment faire disparaitre le gagnant et recommencer la partie.
-        }
+          
     },
     
 })
