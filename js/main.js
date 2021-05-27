@@ -71,6 +71,7 @@ new Vue({
                     this.gagnant = "Le match est nul"    
                     this.replay = true
                     this.isActive = false
+                    this.squares = [null, null, null, null, null, null, null, null, null]
                     this.jouer = "Rejouer" 
 
                      
